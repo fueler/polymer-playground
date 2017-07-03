@@ -12,7 +12,8 @@
         </style>
         <template is="dom-repeat" items="{{commits}}" as="commit">
             <div class="card">
-                <h1>Commit</h1>
+                <h1>[[commit.date]] [[commit.shortlog]]</h1>
+                <div>[[commit.description]]</div>
                 <div>Author: [[commit.author]]</div>
             </div>
         </template>
