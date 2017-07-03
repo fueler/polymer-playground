@@ -67,6 +67,12 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         color: black;
         font-weight: bold;
       }
+
+      .drawer-content {
+        margin-top: 80px;
+        height: calc(100% - 80px);
+        overflow: auto;
+      }
     </style>
 
     <app-location route="{{route}}"></app-location>
@@ -76,29 +82,29 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
         data="{{routeData}}"
         tail="{{subroute}}"></app-route>
 
-    <app-drawer-layout fullbleed>
-      <!-- Drawer content -->
-      <app-drawer id="drawer" slot="drawer">
-        <app-toolbar>Menu</app-toolbar>
-        <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
-          <a name="view1" href="view1">View One</a>
-          <a name="view2" href="view2">View Two</a>
-          <a name="view3" href="view3">View Three</a>
-          <a name="view4" href="view4">View Four</a>
-          <a name="Commits" href="commits-view">Commits</a>
-        </iron-selector>
-      </app-drawer>
+    <app-header-layout>
+      <app-header fixed effects="waterfall" slot="header">
+        <app-toolbar>
+          <paper-icon-button id="menu-toggle" icon="my-icons:menu" on-tap="_toggleMenu"></paper-icon-button>
+          <div main-title>Git Commits</div>
+        </app-toolbar>
+      </app-header>
 
-      <!-- Main content -->
-      <app-header-layout has-scrolling-region>
+      <app-drawer-layout id="drawerLayout">
+        <!-- Drawer content -->
+        <app-drawer id="drawer" slot="drawer">
+          <div class="drawer-content">
+            <iron-selector selected="[[page]]" attr-for-selected="name" class="drawer-list" role="navigation">
+              <a name="view1" href="view1">View One</a>
+              <a name="view2" href="view2">View Two</a>
+              <a name="view3" href="view3">View Three</a>
+              <a name="view4" href="view4">View Four</a>
+              <a name="Commits" href="commits-view">Commits</a>
+            </iron-selector>
+          </div>
+        </app-drawer>
 
-        <app-header slot="header" condenses reveals effects="waterfall">
-          <app-toolbar>
-            <paper-icon-button icon="my-icons:menu" drawer-toggle></paper-icon-button>
-            <div main-title>My App</div>
-          </app-toolbar>
-        </app-header>
-
+        <!-- Main content -->
         <iron-pages
             selected="[[page]]"
             attr-for-selected="name"
@@ -111,8 +117,8 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
           <my-view4 name="view4"></my-view4>
           <my-commits-view name="commits-view"></my-commits-view>
         </iron-pages>
-      </app-header-layout>
-    </app-drawer-layout>
+      </app-drawer-layout>
+    </app-header-layout>
   </template>
 
   <script>
@@ -176,6 +182,14 @@ subject to an additional IP rights grant found at http://polymer.github.io/PATEN
 
       _showPage404() {
         this.page = 'view404';
+      }
+
+      _toggleMenu() {
+        if (this.$.drawerLayout.forceNarrow || !this.$.drawerLayout.narrow) {
+          this.$.drawerLayout.forceNarrow = !this.$.drawerLayout.forceNarrow;
+        } else {
+          this.$.drawerLayout.drawer.toggle();
+        }  
       }
     }
 
