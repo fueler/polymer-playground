@@ -5,10 +5,10 @@
     const initial_state = {
         commits: [
             {
-                name: 'Bob',
+                author: "Bob",
             },
             {
-                name: 'Alice',
+                author: "Alice",
             }
         ]
     };
@@ -23,7 +23,7 @@
             default:
                 return state;
         }
-    }
+    };
 
     const store = Redux.createStore(reducer);
 

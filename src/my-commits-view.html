@@ -1,0 +1,16 @@
+<link rel="import" href="../bower_components/polymer/polymer-element.html">
+<link rel="import" href="commit-list.html">
+
+<dom-module id="my-commits-view">
+    <template>
+        <commit-list></commit-list>
+  </template>
+
+  <script>
+    class CommitsView extends Polymer.Element {
+      static get is() { return 'my-commits-view'; }
+    }
+
+    window.customElements.define(CommitsView.is, CommitsView);
+  </script>
+</dom-module>
